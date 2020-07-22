@@ -1,0 +1,24 @@
+<h2>Particle System Generator</h2>
+<p>Count: <input id="count" value="15"></p>
+<p>Min Size<input id="minSize" value="0.1"></p>
+<p>Max Size<input id="maxSize" value="10"></p>
+<p>Min X <input id="minX" value="0"></p>
+<p>Max X <input id="maxX" value="1024"></p>
+<p>Min Y <input id="minY" value="0"></p>
+<p>Max Y <input id="maxY" value="1024"></p>
+<button id="create">Create</button>
+<button id="cancel">Cancel</button>
+<script>
+
+  document.getElementById('create').onclick = () => {
+    const props = Object.fromEntries(new Array(...document.querySelectorAll("input")).map(input => [input.id, input.value]))
+    const textbox = document.getElementById('count');
+    const count = parseInt(textbox.value, 10);
+    parent.postMessage({ pluginMessage: { type: 'create-particle-system', props } }, '*')
+  }
+
+  document.getElementById('cancel').onclick = () => {
+    parent.postMessage({ pluginMessage: { type: 'cancel' } }, '*')
+  }
+
+</script>

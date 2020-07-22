@@ -1,0 +1,7 @@
+{
+	"name": "Align text to curve",
+	"id": "737738449509241862",
+	"api": "1.0.0",
+	"main": "dist/code.js",
+	"ui": "dist/ui.html"
+}
