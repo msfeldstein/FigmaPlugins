@@ -1,5 +1,5 @@
 
-const main = async function() {
+const refresh = async function() {
   const exportNames = [
     "VOLUME",
     "TITLEBAR",
@@ -25,7 +25,7 @@ const main = async function() {
   // console.log(pngs)
   console.log("About to make zip")
 
-  figma.showUI(__html__, { visible: false })
+  
   figma.ui.postMessage({
     pngs
   })
@@ -34,4 +34,10 @@ const main = async function() {
   // FileSaver.saveAs(blob, 'skin.wsz')
 }
 
-main()
+figma.ui.onmessage = (msg) => {
+  console.log(msg)
+  if (msg === "refresh") {
+    refresh()
+  }
+}
+figma.showUI(__html__, { visible: true, width: 275, height: 400 })
