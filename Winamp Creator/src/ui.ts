@@ -2,7 +2,7 @@ import JSZip from 'jszip'
 import Jimp from 'jimp'
 import Webamp from 'webamp'
 // import * as FileSaver from 'file-saver';
-
+let url;
 const webamp = new Webamp({
   initialTracks: [
     {
@@ -26,17 +26,22 @@ onmessage = async (e) => {
   }
 
   const blob = await zip.generateAsync({type: 'blob'})
-  const url = URL.createObjectURL(blob)
+  if (url) URL.revokeObjectURL(url)
+  url = URL.createObjectURL(blob)
   debugger
   webamp.setSkinFromUrl(url)
-  const a = document.createElement('a')
-  // a.href = url
-  // a.download =  "skin.wsz"
-  // a.target = "_blank"
-  // a.click()
+
 
 }
 
 document.querySelector("#refresh").addEventListener("click", () => {
   parent.postMessage({pluginMessage: "refresh"}, "*")
+})
+
+document.querySelector("#download").addEventListener("click", () => {
+  const a = document.createElement('a')
+  a.href = url
+  a.download =  "skin.wsz"
+  a.target = "_blank"
+  a.click()
 })
